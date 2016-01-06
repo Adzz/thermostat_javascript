@@ -51,14 +51,12 @@ $( document ).ready(function() {
 	$("#power-save").click( function(){
 		thermostat.togglePowerSave();
 		updateDisplay();
-		if(thermostat.isPowerSaving){
-			$("#power-save").addClass(".green");
+		if(thermostat.isPowerSaving===false){
+			$("#power-save").css("background-color", "black");
+		} else {
+			$("#power-save").css("background-color", "green");
 		}
 	});
-
-
-	
-
 
 });
 
