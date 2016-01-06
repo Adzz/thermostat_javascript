@@ -10,6 +10,7 @@ function Thermostat(){
 };
 
 
+
 Thermostat.prototype.up = function(){
 	if(this.temp===this._maxTemp()) throw "It's too hot already!";
 	this.temp++;
@@ -67,7 +68,7 @@ Thermostat.prototype.getTemp = function() {
 	if (this.unit==="Celsius") {
 		return this.temp;
 	} else if (this.unit==="Fahrenheit") {
-		return this.temp*1.8+32;
+		return Math.round(this.temp*1.8+32);
 	} else {
 		return Math.round(this.temp+273.15);
 	}

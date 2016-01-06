@@ -49,12 +49,22 @@ table {
 
 html {
 	font-family: "Impact", "Lucida Sans Demibold", "futura", "Arial", sans-serif;
+	font-size: 3em;
+	text-align: center;
 
 }
 
+button {
+	background-color: black;
+	color: whitesmoke;
+	font-size: .75em;
+	border: none;
+
+}
 
 h1 {
 	display: inline-block;
+
 
 }
 
@@ -64,8 +74,9 @@ sup {
 }
 
 
-
-
+.green {
+	background-color: green;
+}
 
 
 
