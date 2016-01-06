@@ -102,16 +102,25 @@ describe("Thermostat", function() {
 
 
 	describe("#toggleUnits", function(){
-		it("changes the unit from celsius to Fahrenheit when unit is celsius", function(){
+		it("changes the unit from celsius to Fahrenheit when pressed once", function(){
 			thermostat.toggleUnits();
 			expect(thermostat.unit).toBe("Fahrenheit");
 		});
 
-		it("Changes unit from fahrenheit to celsius when unit is fahrenheit", function(){
+		it("Changes unit from Celsius to Kelvin when pressed twice", function(){
+			thermostat.toggleUnits();
+			thermostat.toggleUnits();
+			expect(thermostat.unit).toBe("Kelvin");
+		});
+
+		it("Changes unit from kelvin to celsius when pressed three times", function(){
+			thermostat.toggleUnits();
 			thermostat.toggleUnits();
 			thermostat.toggleUnits();
 			expect(thermostat.unit).toBe("Celsius");
 		});
+
+
 	});
 
 	describe("#getTemp", function(){
@@ -122,6 +131,12 @@ describe("Thermostat", function() {
 		it("returns the temp in Fahrenheit when the unit is Fahrenheit", function(){
 			thermostat.toggleUnits();
 			expect(thermostat.getTemp()).toEqual(68);
+		});
+
+		it("returns the temp in Kelvin when the unit is Kelvin", function(){
+			thermostat.toggleUnits();
+			thermostat.toggleUnits();
+			expect(thermostat.getTemp()).toEqual(293);
 		});
 
 	});

@@ -54,8 +54,10 @@ Thermostat.prototype.displayColour = function() {
 Thermostat.prototype.toggleUnits = function() {
 	if(this.unit==="Celsius"){
 		this.unit = "Fahrenheit";
+	} else if(this.unit==="Fahrenheit") {
+		this.unit = "Kelvin";
 	} else {
-		this.unit = "Celsius";
+		this.unit="Celsius";
 	}
 };
 
@@ -64,8 +66,10 @@ Thermostat.prototype.toggleUnits = function() {
 Thermostat.prototype.getTemp = function() {
 	if (this.unit==="Celsius") {
 		return this.temp;
-	} else {
+	} else if (this.unit==="Fahrenheit") {
 		return this.temp*1.8+32;
+	} else {
+		return Math.round(this.temp+273.15);
 	}
 }
 
