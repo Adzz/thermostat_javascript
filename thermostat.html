@@ -6,15 +6,20 @@
     <title>Thermostat</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="src/thermostat.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="src/thermostat.js"></script>
+    <script src="src/interface.js"></script>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
   	<main role="thermostat">
-	  	<div id="thermostat-display" role="thermostat-display"></div>
-	  	<button id="up"></button>
-	  	<button id="down"></button>
-	  	<button id="reset"></button>
-	  	<button id="power-save"></button>
+	  	<div id="thermostat-display" role="thermostat-display"> 
+	  		<h1 id="thermostat-temp"><h1><sup>0</sup><h1 id="thermostat-unit"></h1>
+	  	</div>
+	  	<button id="up"><img></button>
+	  	<button id="down"><img></button>
+	  	<button id="reset"><img></button>
+	  	<button id="power-save"><img></button>
   	</main>
   </body>
 </html>

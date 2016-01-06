@@ -4,6 +4,7 @@ function Thermostat(){
 	this.temp = 20;
 	this.minTemp = 10;
 	this.isPowerSaving = true;
+	this.unit = "Celsius";
 
 
 };
@@ -50,8 +51,23 @@ Thermostat.prototype.displayColour = function() {
 	}
 };
 
+Thermostat.prototype.toggleUnits = function() {
+	if(this.unit==="Celsius"){
+		this.unit = "Fahrenheit";
+	} else {
+		this.unit = "Celsius";
+	}
+};
 
 
+
+Thermostat.prototype.getTemp = function() {
+	if (this.unit==="Celsius") {
+		return this.temp;
+	} else {
+		return this.temp*1.8+32;
+	}
+}
 
 
 

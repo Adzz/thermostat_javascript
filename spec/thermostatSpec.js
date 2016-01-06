@@ -16,6 +16,10 @@ describe("Thermostat", function() {
 		expect(thermostat.isPowerSaving).toBe(true);
 	});
 
+	it("Initializes displaying celsius", function(){
+		expect(thermostat.unit).toBe("Celsius");
+	});
+
 	describe("#up", function(){
 
 		it("Increases the temperature by one", function(){
@@ -92,6 +96,32 @@ describe("Thermostat", function() {
 		it("Returns green when temp is below 18", function(){
 			thermostat.temp = 15;
 			expect(thermostat.displayColour()).toEqual("green");
+		});
+
+	});
+
+
+	describe("#toggleUnits", function(){
+		it("changes the unit from celsius to Fahrenheit when unit is celsius", function(){
+			thermostat.toggleUnits();
+			expect(thermostat.unit).toBe("Fahrenheit");
+		});
+
+		it("Changes unit from fahrenheit to celsius when unit is fahrenheit", function(){
+			thermostat.toggleUnits();
+			thermostat.toggleUnits();
+			expect(thermostat.unit).toBe("Celsius");
+		});
+	});
+
+	describe("#getTemp", function(){
+		it("returns the temp in Celsius when the unit is Celsius", function(){
+			expect(thermostat.getTemp()).toEqual(20);
+		});
+
+		it("returns the temp in Fahrenheit when the unit is Fahrenheit", function(){
+			thermostat.toggleUnits();
+			expect(thermostat.getTemp()).toEqual(68);
 		});
 
 	});
