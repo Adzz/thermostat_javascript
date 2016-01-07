@@ -1,13 +1,20 @@
 $( document ).ready(function() {
 
-	var thermostat = new Thermostat(), updateDisplay;
+	var thermostat = new Thermostat(), updateDisplay, updateColour;
 
+
+	updateColour = function(){
+		$("#thermostat-display").attr("class", thermostat.displayColour());
+	};
 
 	updateDisplay = function (){
 		$("#thermostat-temp").text(thermostat.getTemp());
 		$("#thermostat-unit").text(thermostat.unit);
-	
+		updateColour();
+		
 	};
+
+
 
 	updateDisplay();
 
@@ -59,11 +66,16 @@ $( document ).ready(function() {
 	});
 
 
+
 	$("#do-not-press").hover(function(){
 		$("audio")[0].play();
-	}, function(){
+		}, function(){
 		$("audio")[0].pause();
+		$("audio")[0].currentTime=0;
 	});
+
+
+
 
 
 });

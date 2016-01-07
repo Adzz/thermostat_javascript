@@ -48,7 +48,7 @@ table {
 /*========== styles ==========*/
 
 html {
-	font-family: "Impact", "Lucida Sans Demibold", "futura", "Arial", sans-serif;
+	font-family: "Lobster", "Lucida Sans Demibold", "futura", "Arial", sans-serif;
 	font-size: 3em;
 	text-align: center;
 
@@ -65,7 +65,6 @@ button {
 h1 {
 	display: inline-block;
 
-
 }
 
 sup {
@@ -75,7 +74,7 @@ sup {
 
 
 #power-save {
-	background-color: green;
+	background-color: #00660E;
 }
 
 #do-not-press {
@@ -84,14 +83,18 @@ sup {
 
 
 
+.red {
+
+	color: #D53939;
+
+}
 
 
+.blue {
 
+	color: #76ABCD;
 
-
-
-
-
+}
 
 
 
