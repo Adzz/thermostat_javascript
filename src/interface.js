@@ -80,11 +80,6 @@ $( document ).ready(function() {
 	});
 
 
-	// $("do-not-press").click(function(){
-
-
-	// });
-
 
 	apiCall = function(){
 		var city = $("#current-city").val();
@@ -110,6 +105,12 @@ $( document ).ready(function() {
 	});
 
 
+
+	// $("do-not-press").click(function(){
+
+		
+
+	// });
 
 
 });
