@@ -3,7 +3,9 @@ $( document ).ready(function() {
 	var thermostat = new Thermostat(),
 			updateDisplay,
 			updateColour,
-			apiCall;
+			apiCall,
+			cityTemperature = $("#weather").val(),
+			getCityTemp;
 
 	updateColour = function(){
 		$("#thermostat-display").attr("class", thermostat.displayColour());
@@ -12,16 +14,17 @@ $( document ).ready(function() {
 	updateDisplay = function (){
 		$("#thermostat-temp").text(thermostat.getTemp());
 		$("#thermostat-unit").text(thermostat.unit);
+		$("#weather-unit").text(thermostat.unit);
+
 		updateColour();
 		
 	};
-
-
 
 	updateDisplay();
 
 
 	$("#unit-change").click( function(){
+		apiCall();
 		thermostat.toggleUnits();
 		updateDisplay();
 	});
@@ -77,24 +80,34 @@ $( document ).ready(function() {
 	});
 
 
-	$("do-not-press").click(function(){
+	// $("do-not-press").click(function(){
 
 
-	});
+	// });
 
 
 	apiCall = function(){
 		var city = $("#current-city").val();
-		$.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=52115bea41e04c74ffb6205b4ecbd623", function(data){
-			$("#weather").text(data.main.temp);
+		$.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=52115bea41e04c74ffb6205b4ecbd623&units=metric", function(data){
+		apiData(data);
 		});
   };
 
+
+	function apiData(data){
+		if(thermostat.unit==="Celsius"){
+			$("#weather").text(data.main.temp);
+		} else if(thermostat.unit==="Fahrenheit") {
+			$("#weather").text(Math.round((data.main.temp)*1.8+32));
+		} else {
+			$("#weather").text(Math.round((data.main.temp)+273.15));
+		}
+	};
+
+
 	$("#look-outside").click(function(){
-		apiCall();
+		apiCall();		
 	});
-
-
 
 
 

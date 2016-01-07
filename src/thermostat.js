@@ -73,4 +73,3 @@ Thermostat.prototype.getTemp = function() {
 }
 
 
-
