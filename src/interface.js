@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-	var thermostat = new Thermostat(), updateDisplay, up;
+	var thermostat = new Thermostat(), updateDisplay;
 
 
 	updateDisplay = function (){
@@ -57,6 +57,14 @@ $( document ).ready(function() {
 			$("#power-save").css("background-color", "green");
 		}
 	});
+
+
+	$("#do-not-press").hover(function(){
+		$("audio")[0].play();
+	}, function(){
+		$("audio")[0].pause();
+	});
+
 
 });
 
