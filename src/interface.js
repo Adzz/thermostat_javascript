@@ -5,7 +5,11 @@ $( document ).ready(function() {
 			updateColour,
 			apiCall,
 			cityTemperature = $("#weather").val(),
-			getCityTemp;
+			getCityTemp,
+			dnpSound,
+			buttonCounter,
+			counter = 1,
+			flashFont;
 
 	updateColour = function(){
 		$("#thermostat-display").attr("class", thermostat.displayColour());
@@ -86,21 +90,41 @@ $( document ).ready(function() {
 	});
 
 
-
 	$("#do-not-press").click(function(){
+		dnpSound();
+		buttonCounter();
+		flashFont();
+
+	});
+
+
+	flashFont = function(){
+		var body = $("body");
+		body.animate({fontSize: "4em"}, "fast");
+		body.animate({fontSize: "0em"}, "fast");
+		body.animate({fontSize: "3em"}, "fast");
+	};
+
+	buttonCounter = function(){
+		$("#counter").text(counter++);
+
+	};
+
+
+	dnpSound = function(){
 		var clicks = $(this).data('clicks');
 		$("#do-not-press").trigger("mouseleave");
 		if(clicks){
 			$("#audio2")[0].currentTime=0;
 			$("#audio2")[0].play();
+			$("#badass").toggleClass("hidden");
 		} else {
 			$("#audio2")[0].pause();
 			$("#audio2")[0].currentTime=0;
+			$("#badass").toggleClass("hidden");
 		}
 		$(this).data("clicks", !clicks);
-	});
-
-
+	};
 
 	apiCall = function(){
 		var city = $("#current-city").val();
