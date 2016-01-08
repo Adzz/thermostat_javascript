@@ -15,7 +15,6 @@ $( document ).ready(function() {
 		$("#thermostat-temp").text(thermostat.getTemp());
 		$("#thermostat-unit").text(thermostat.unit);
 		$("#weather-unit").text(thermostat.unit);
-
 		updateColour();
 		
 	};
@@ -71,22 +70,45 @@ $( document ).ready(function() {
 	});
 
 
-
-	$("#do-not-press").hover(function(){
+	$("#do-not-press").mouseenter(function (){
+		if($("#audio2")[0].currentTime>0){
+			$("audio")[0].pause();
+		} else {
 		$("audio")[0].play();
-		}, function(){
+		$("#audio2")[0].currentTime=0;
+		}
+		});
+
+
+	$("#do-not-press").mouseleave(function (){
 		$("audio")[0].pause();
 		$("audio")[0].currentTime=0;
 	});
 
 
 
+	$("#do-not-press").click(function(){
+		var clicks = $(this).data('clicks');
+		$("#do-not-press").trigger("mouseleave");
+		if(clicks){
+			$("#audio2")[0].currentTime=0;
+			$("#audio2")[0].play();
+		} else {
+			$("#audio2")[0].pause();
+			$("#audio2")[0].currentTime=0;
+		}
+		$(this).data("clicks", !clicks);
+	});
+
+
+
 	apiCall = function(){
 		var city = $("#current-city").val();
-		$.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=52115bea41e04c74ffb6205b4ecbd623&units=metric", function(data){
+		$.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=347020e833b5fdb5ed8ffb75b3c1f8c6&units=metric", function(data){
 		apiData(data);
 		});
   };
+
 
 
 	function apiData(data){
@@ -105,12 +127,6 @@ $( document ).ready(function() {
 	});
 
 
-
-	// $("do-not-press").click(function(){
-
-		
-
-	// });
 
 
 });

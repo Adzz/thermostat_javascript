@@ -6,7 +6,6 @@ function Thermostat(){
 	this.isPowerSaving = true;
 	this.unit = "Celsius";
 
-
 };
 
 
@@ -70,6 +69,6 @@ Thermostat.prototype.getTemp = function() {
 	} else {
 		return Math.round(this.temp+273.15);
 	}
-}
+};
 
 
