@@ -6,10 +6,13 @@ $( document ).ready(function() {
 			apiCall,
 			cityTemperature = $("#weather").val(),
 			getCityTemp,
-			dnpSound,
+			dnpSoundOn,
+			dnpSoundOff,
 			buttonCounter,
 			counter = 1,
-			flashFont;
+			bodyChange,
+			bodyChangeBack,
+			body = $("body");
 
 	updateColour = function(){
 		$("#thermostat-display").attr("class", thermostat.displayColour());
@@ -91,39 +94,46 @@ $( document ).ready(function() {
 
 
 	$("#do-not-press").click(function(){
-		dnpSound();
-		buttonCounter();
-		flashFont();
-
+		var clicks = $(this).data('clicks');
+		if(clicks){
+			dnpSoundOn();
+			buttonCounter();
+			bodyChange();
+			bodyChangeBack();
+			bodyChange();
+		} else {
+			dnpSoundOff();
+			bodyChangeBack();
+		}
+		$(this).data("clicks", !clicks);
 	});
 
+	bodyChangeBack = function(){
+		body.css("background-color", "white");
+		body.toggleClass("green");
 
-	flashFont = function(){
-		var body = $("body");
-		body.animate({fontSize: "4em"}, "fast");
-		body.animate({fontSize: "0em"}, "fast");
-		body.animate({fontSize: "3em"}, "fast");
+	};
+
+	bodyChange = function(){
+		body.css("background-color", "red");
+		body.toggleClass("green");
 	};
 
 	buttonCounter = function(){
 		$("#counter").text(counter++);
-
 	};
 
+	dnpSoundOff = function(){
+		$("#audio2")[0].pause();
+		$("#audio2")[0].currentTime=0;
+		$("#badass").toggleClass("hidden");
+	};
 
-	dnpSound = function(){
-		var clicks = $(this).data('clicks');
+	dnpSoundOn = function(){
 		$("#do-not-press").trigger("mouseleave");
-		if(clicks){
-			$("#audio2")[0].currentTime=0;
-			$("#audio2")[0].play();
-			$("#badass").toggleClass("hidden");
-		} else {
-			$("#audio2")[0].pause();
-			$("#audio2")[0].currentTime=0;
-			$("#badass").toggleClass("hidden");
-		}
-		$(this).data("clicks", !clicks);
+		$("#audio2")[0].currentTime=0;
+		$("#audio2")[0].play();
+		$("#badass").toggleClass("hidden");
 	};
 
 	apiCall = function(){
