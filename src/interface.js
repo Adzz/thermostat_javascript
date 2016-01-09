@@ -1,18 +1,24 @@
 $( document ).ready(function() {
 
-	var thermostat = new Thermostat(),
+	let thermostat = new Thermostat(),
 			updateDisplay,
 			updateColour,
 			apiCall,
-			cityTemperature = $("#weather").val(),
 			getCityTemp,
 			dnpSoundOn,
 			dnpSoundOff,
 			buttonCounter,
 			counter = 1,
 			bodyChange,
-			bodyChangeBack,
-			body = $("body");
+			bodyChangeBack;
+
+	const thermostat = new Thermostat(),
+				body = $("body"),
+				dangerSound=$("audio")[0],
+				celebrateSound=$("#audio2")[0],
+				cityTemperature = $("#weather").val();
+
+
 
 	updateColour = function(){
 		$("#thermostat-display").attr("class", thermostat.displayColour());
@@ -66,6 +72,7 @@ $( document ).ready(function() {
 		updateDisplay();
 	});
 
+
 	$("#power-save").click( function(){
 		thermostat.togglePowerSave();
 		updateDisplay();
@@ -78,18 +85,18 @@ $( document ).ready(function() {
 
 
 	$("#do-not-press").mouseenter(function (){
-		if($("#audio2")[0].currentTime>0){
-			$("audio")[0].pause();
+		if(celebrateSound.currentTime>0){
+			dangerSound.pause();
 		} else {
-		$("audio")[0].play();
-		$("#audio2")[0].currentTime=0;
+		dangerSound.play();
+		celebrateSound.currentTime=0;
 		}
 		});
 
 
 	$("#do-not-press").mouseleave(function (){
-		$("audio")[0].pause();
-		$("audio")[0].currentTime=0;
+		dangerSound.pause();
+		celebrateSound.currentTime=0;
 	});
 
 
@@ -124,15 +131,15 @@ $( document ).ready(function() {
 	};
 
 	dnpSoundOff = function(){
-		$("#audio2")[0].pause();
-		$("#audio2")[0].currentTime=0;
+		celebrateSound.pause();
+		celebrateSound.currentTime=0;
 		$("#badass").toggleClass("hidden");
 	};
 
 	dnpSoundOn = function(){
 		$("#do-not-press").trigger("mouseleave");
-		$("#audio2")[0].currentTime=0;
-		$("#audio2")[0].play();
+		celebrateSound.currentTime=0;
+		celebrateSound.play();
 		$("#badass").toggleClass("hidden");
 	};
 
