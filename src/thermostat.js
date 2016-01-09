@@ -1,23 +1,29 @@
+"use strict"
 
 function Thermostat(){
+
+	const tooHot = "It's too hot already!",
+				tooCold = "It's wayyyy too cold for that. Go back to Canada";
 
 	this.temp = 20;
 	this.minTemp = 10;
 	this.isPowerSaving = true;
 	this.unit = "Celsius";
 
+
+
 };
 
 
 
 Thermostat.prototype.up = function(){
-	if(this.temp===this._maxTemp()) throw "It's too hot already!" && alert("It's too hot already!");
+	if(this.temp===this._maxTemp()) throw tooHot && alert(tooHot);
 	this.temp++;
 };
 
 
 Thermostat.prototype.down = function(){
-	if(this.temp===this.minTemp) throw "It's wayyyy too cold for that. Go back to Canada" && alert("It's wayyyy too cold for that. Go back to Canada");
+	if(this.temp===this.minTemp) throw tooCold && alert(tooCold);
 	this.temp--;
 };
 

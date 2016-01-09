@@ -1,16 +1,7 @@
+	"use strict"
 $( document ).ready(function() {
 
-	let thermostat = new Thermostat(),
-			updateDisplay,
-			updateColour,
-			apiCall,
-			getCityTemp,
-			dnpSoundOn,
-			dnpSoundOff,
-			buttonCounter,
-			counter = 1,
-			bodyChange,
-			bodyChangeBack;
+	let counter = 1;
 
 	const thermostat = new Thermostat(),
 				body = $("body"),
@@ -20,11 +11,11 @@ $( document ).ready(function() {
 
 
 
-	updateColour = function(){
+	function updateColour(){
 		$("#thermostat-display").attr("class", thermostat.displayColour());
 	};
 
-	updateDisplay = function (){
+	function updateDisplay(){
 		$("#thermostat-temp").text(thermostat.getTemp());
 		$("#thermostat-unit").text(thermostat.unit);
 		$("#weather-unit").text(thermostat.unit);
@@ -35,19 +26,19 @@ $( document ).ready(function() {
 	updateDisplay();
 
 
-	$("#unit-change").click( function(){
+	$("#unit-change").click( function unitChange(){
 		apiCall();
 		thermostat.toggleUnits();
 		updateDisplay();
 	});
 
 
-	$("#up").click( function(){
+	$("#up").click( function upClick(){
 		thermostat.up();
 		updateDisplay();
 	});
 
-	$(document).keyup( function(upButton){
+	$(document).keyup( function upKeyboard(upButton){
 		if(upButton.which==38){
 			thermostat.up();
 			updateDisplay();
@@ -55,25 +46,26 @@ $( document ).ready(function() {
 	});
 
 
-	$("#down").click( function(){
+	$("#down").click(function downClick(){
 		thermostat.down();
 		updateDisplay();
 	});
 
-	$(document).keyup( function(downButton){
+
+	$(document).keyup( function downKeyboard(downButton){
 		if(downButton.which==40){
 			thermostat.down();
 			updateDisplay();
 		}
 	});
 
-	$("#resetTemp").click( function(){
+	$("#resetTemp").click( function resetTemp(){
 		thermostat.resetTemp();
 		updateDisplay();
 	});
 
 
-	$("#power-save").click( function(){
+	$("#power-save").click( function powerSave(){
 		thermostat.togglePowerSave();
 		updateDisplay();
 		if(thermostat.isPowerSaving===false){
@@ -84,7 +76,7 @@ $( document ).ready(function() {
 	});
 
 
-	$("#do-not-press").mouseenter(function (){
+	$("#do-not-press").mouseenter(function dnpHoverIn(){
 		if(celebrateSound.currentTime>0){
 			dangerSound.pause();
 		} else {
@@ -94,14 +86,14 @@ $( document ).ready(function() {
 		});
 
 
-	$("#do-not-press").mouseleave(function (){
+	$("#do-not-press").mouseleave(function dnpHoverOut(){
 		dangerSound.pause();
 		celebrateSound.currentTime=0;
 	});
 
 
-	$("#do-not-press").click(function(){
-		var clicks = $(this).data('clicks');
+	$("#do-not-press").click(function dnpClick(){
+		let clicks = $(this).data('clicks');
 		if(clicks){
 			dnpSoundOn();
 			buttonCounter();
@@ -115,42 +107,50 @@ $( document ).ready(function() {
 		$(this).data("clicks", !clicks);
 	});
 
-	bodyChangeBack = function(){
+	function bodyChangeBack(){
 		body.css("background-color", "white");
 		body.toggleClass("green");
 
 	};
 
-	bodyChange = function(){
+	function bodyChange(){
 		body.css("background-color", "red");
 		body.toggleClass("green");
 	};
 
-	buttonCounter = function(){
+	function buttonCounter(){
 		$("#counter").text(counter++);
 	};
 
-	dnpSoundOff = function(){
+	function dnpSoundOff(){
 		celebrateSound.pause();
 		celebrateSound.currentTime=0;
 		$("#badass").toggleClass("hidden");
 	};
 
-	dnpSoundOn = function(){
+	function dnpSoundOn(){
 		$("#do-not-press").trigger("mouseleave");
 		celebrateSound.currentTime=0;
 		celebrateSound.play();
 		$("#badass").toggleClass("hidden");
 	};
 
-	apiCall = function(){
-		var city = $("#current-city").val();
+
+	$("#look-outside").click(function lookOutside(){
+		if($("#current-city").val().length<1){
+			let city = prompt("Please enter the city you are in")
+			$("#current-city").val(city);
+			apiCall();
+		} else {
+			apiCall();		
+	}});
+
+	function apiCall(){
+		let city = $("#current-city").val();
 		$.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=347020e833b5fdb5ed8ffb75b3c1f8c6&units=metric", function(data){
 		apiData(data);
 		});
   };
-
-
 
 	function apiData(data){
 		if(thermostat.unit==="Celsius"){
@@ -161,12 +161,6 @@ $( document ).ready(function() {
 			$("#weather").text(Math.round((data.main.temp)+273.15));
 		}
 	};
-
-
-	$("#look-outside").click(function(){
-		apiCall();		
-	});
-
 
 
 
